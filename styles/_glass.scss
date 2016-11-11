@@ -1,12 +1,13 @@
 .magnify {
   $border: 15px;
+  $color: white;
   $dimension: 80px;
   $sine45: 0.70710678;
   $handle-offset: ($sine45 * ($border / 2));
   $middle: ($dimension / 2);
   $middle-to-border: ($sine45 * (($dimension - $border) / 2));
   $border-bottom-right-center: $middle + $middle-to-border;
-  $transition: all 0.4s cubic-bezier(0, 0, 0, 1);
+  $transition: 0.2s ease-out;
 
   display: block;
   height: $dimension;
@@ -15,25 +16,46 @@
   width: $dimension;
 
   .glass {
-    border: $border solid white;
+    border: $border solid $color;
     border-radius: 100%;
     height: $dimension;
+    left: 0;
     position: absolute;
-    transform-origin: 50% 50%;
-    transition: $transition;
+    top: 0;
+    transform-origin: 50%;
+    transition: border-radius $transition, left $transition, width $transition;
     width: $dimension;
   }
 
   .handle {
-    background: white;
-    box-sizing: inherit;
+    background: $color;
     height: $border;
     left: $border-bottom-right-center + $handle-offset;
     position: absolute;
     top: $border-bottom-right-center - $handle-offset;
     transform: rotate(45deg);
     transform-origin: 0 0;
-    transition: $transition;
+    transition: left $transition, top $transition, transform-origin $transition;
     width: $dimension;
+  }
+
+  &.active {
+    $offset: 32.5px;
+
+    .glass {
+      background: $color;
+      border: 0;
+      border-radius: 0;
+      height: $dimension;
+      left: $offset;
+      transform: rotate(45deg);
+      width: $border;
+    }
+
+    .handle {
+      left: 0;
+      top: $offset;
+      transform-origin: 50%;
+    }
   }
 }
