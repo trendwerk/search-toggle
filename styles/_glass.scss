@@ -1,0 +1,39 @@
+.magnify {
+  $border: 15px;
+  $dimension: 80px;
+  $sine45: 0.70710678;
+  $handle-offset: ($sine45 * ($border / 2));
+  $middle: ($dimension / 2);
+  $middle-to-border: ($sine45 * (($dimension - $border) / 2));
+  $border-bottom-right-center: $middle + $middle-to-border;
+  $transition: all 0.4s cubic-bezier(0, 0, 0, 1);
+
+  display: block;
+  height: $dimension;
+  margin: 0 auto;
+  position: relative;
+  width: $dimension;
+
+  .glass {
+    border: $border solid white;
+    border-radius: 100%;
+    height: $dimension;
+    position: absolute;
+    transform-origin: 50% 50%;
+    transition: $transition;
+    width: $dimension;
+  }
+
+  .handle {
+    background: white;
+    box-sizing: inherit;
+    height: $border;
+    left: $border-bottom-right-center + $handle-offset;
+    position: absolute;
+    top: $border-bottom-right-center - $handle-offset;
+    transform: rotate(45deg);
+    transform-origin: 0 0;
+    transition: $transition;
+    width: $dimension;
+  }
+}
