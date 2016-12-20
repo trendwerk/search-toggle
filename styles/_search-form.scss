@@ -1,61 +1,72 @@
-.magnify {
-  $border: 15px;
+.search-form {
+  $border: 10px;
+  $button: (
+    'background': black,
+    'height': 150px,
+    'width': 200px,
+  );
   $color: white;
   $dimension: 80px;
-  $sine45: 0.70710678;
-  $handle-offset: ($sine45 * ($border / 2));
-  $middle: ($dimension / 2);
-  $middle-to-border: ($sine45 * (($dimension - $border) / 2));
-  $border-bottom-right-center: $middle + $middle-to-border;
-  $transition: 0.2s ease-out;
+  $handle-width: 50px;
 
-  display: block;
-  height: $dimension;
-  margin: 0 auto;
-  position: relative;
-  width: $dimension;
+  &--toggle {
+    background: map-get($button, 'background');
+    height: map-get($button, 'height');
+    padding-top: (map-get($button, 'height') - $dimension) / 2;
+    width: map-get($button, 'width');
+  }
 
-  .glass {
-    border: $border solid $color;
-    border-radius: 100%;
+  .magnify {
+    $sine45: 0.70710678;
+    $handle-offset: ($sine45 * ($border / 2));
+    $middle: ($dimension / 2);
+    $middle-to-border: ($sine45 * (($dimension - $border) / 2));
+    $border-bottom-right-center: $middle + $middle-to-border;
+    $transition: 0.2s ease-out;
+
+    display: block;
     height: $dimension;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform-origin: 50%;
-    transition: border-radius $transition, left $transition, width $transition;
+    margin: 0 auto;
+    position: relative;
     width: $dimension;
+
+    .glass {
+      border: $border solid $color;
+      border-radius: 100%;
+      height: $dimension;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transform-origin: 50%;
+      transition: border-radius $transition, transform $transition, width $transition;
+      width: $dimension;
+    }
+
+    .handle {
+      background: $color;
+      height: $border;
+      left: $border-bottom-right-center + $handle-offset;
+      position: absolute;
+      top: $border-bottom-right-center - $handle-offset;
+      transform: rotate(45deg);
+      transform-origin: 0;
+      transition: transform $transition, width $transition;
+      width: $handle-width;
+    }
   }
 
-  .handle {
-    background: $color;
-    height: $border;
-    left: $border-bottom-right-center + $handle-offset;
-    position: absolute;
-    top: $border-bottom-right-center - $handle-offset;
-    transform: rotate(45deg);
-    transform-origin: 0 0;
-    transition: left $transition, top $transition, transform-origin $transition;
-    width: $dimension;
-  }
-
-  &.active {
-    $offset: 32.5px;
-
+  &.active .magnify {
     .glass {
       background: $color;
       border: 0;
       border-radius: 0;
-      height: $dimension;
-      left: $offset;
-      transform: rotate(45deg);
+      transform: rotate(45deg) translate(28px, -28px);
       width: $border;
     }
 
     .handle {
-      left: 0;
-      top: $offset;
-      transform-origin: 50%;
+      transform: rotate(45deg) translateX(-($dimension));
+      width: $dimension;
     }
   }
 }
