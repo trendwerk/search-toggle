@@ -1,13 +1,20 @@
 .search-form {
-  $border: 10px;
+  $border: 2px;
   $button: (
     'background': black,
-    'height': 150px,
-    'width': 200px,
+    'height': 60px,
+    'width': 100px,
   );
   $color: white;
-  $dimension: 80px;
-  $handle-width: 50px;
+  $dimension: 20px;
+  $handle-width: 10px;
+  $transition: 0.15s ease-out;
+
+  cursor: pointer;
+
+  * {
+    box-sizing: border-box;
+  }
 
   &--toggle {
     background: map-get($button, 'background');
@@ -22,7 +29,6 @@
     $middle: ($dimension / 2);
     $middle-to-border: ($sine45 * (($dimension - $border) / 2));
     $border-bottom-right-center: $middle + $middle-to-border;
-    $transition: 0.2s ease-out;
 
     display: block;
     height: $dimension;
@@ -37,7 +43,6 @@
       left: 0;
       position: absolute;
       top: 0;
-      transform-origin: 50%;
       transition: border-radius $transition, transform $transition, width $transition;
       width: $dimension;
     }
@@ -49,7 +54,7 @@
       position: absolute;
       top: $border-bottom-right-center - $handle-offset;
       transform: rotate(45deg);
-      transform-origin: 0;
+      transform-origin: 0 0;
       transition: transform $transition, width $transition;
       width: $handle-width;
     }
@@ -60,12 +65,12 @@
       background: $color;
       border: 0;
       border-radius: 0;
-      transform: rotate(45deg) translate(28px, -28px);
+      transform: translate(($dimension / 2) - ($border / 2), 0) rotate(45deg);
       width: $border;
     }
 
     .handle {
-      transform: rotate(45deg) translateX(-($dimension));
+      transform: rotate(45deg) translateX(-($dimension - ($border / 2)));
       width: $dimension;
     }
   }
